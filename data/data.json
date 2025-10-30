@@ -1,0 +1,26 @@
+{
+    "credentials": {
+        "valid_users": [{
+            "userEmail": "TBD",
+            "userPassword": "TBD" 
+        },{
+            "userEmail": "TBD",
+            "userPassword": "TBD" 
+        }],
+        "invalid_users": [{
+            "userEmail": "TBD",
+            "userPassword": "TBD" 
+        },{
+            "userEmail": "TBD",
+            "userPassword": "TBD"
+        }]
+    },
+    "payloads": {
+        "request_payloads": [{
+
+        }],
+        "response_payloads": [{
+
+        }]
+    }
+}
