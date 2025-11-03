@@ -1,11 +1,11 @@
 {
     "credentials": {
         "valid_users": [{
-            "userEmail": "TBD",
-            "userPassword": "TBD" 
+            "userEmail": "rahulshetty@gmail.com",
+            "userPassword": "Iamking@000" 
         },{
-            "userEmail": "TBD",
-            "userPassword": "TBD" 
+            "userEmail": "randomemail123@gmail.com",
+            "userPassword": "05rmOWQ9V5RxvsTF" 
         }],
         "invalid_users": [{
             "userEmail": "TBD",

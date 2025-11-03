@@ -3,5 +3,7 @@ pytest-bdd
 pytest-html
 pytest-xdist
 playwright
+pytest-playwright
 validators
 requests
+gherkin-official
