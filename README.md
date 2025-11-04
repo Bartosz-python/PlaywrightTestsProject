@@ -32,7 +32,7 @@ PLAYWRIGHTTESTSPROJECT/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/PlaywrightTestsProject.git
+git clone https://github.com/Bartosz-Python/PlaywrightTestsProject.git
 cd PlaywrightTestsProject
 ```
 
