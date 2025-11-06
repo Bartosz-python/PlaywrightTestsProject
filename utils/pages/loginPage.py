@@ -10,7 +10,7 @@ class LoginPage:
         self.page = page
 
     def navigate(self) -> None:
-        self.page.goto(os.getenv("URL"))
+        self.page.goto(os.getenv("BASE_URL"))
 
     def login(self, email: str, password: str) -> Self:
         emailInputField: ElementHandle | None = self.page.query_selector("#userEmail")
