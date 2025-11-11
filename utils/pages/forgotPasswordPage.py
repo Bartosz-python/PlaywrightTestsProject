@@ -5,8 +5,7 @@ class ForgotPasswordPage:
         self.page = page
 
     def fill_credentials(self, email: str, password: str, confirm_password: str):
-        #! cannot find email field, to fix
-        email_field: Locator = self.page.locator("input[placeholder='Enter your email address']")
+        email_field: Locator = self.page.query_selector("input[placeholder='Enter your email address']")
         email_field.fill(email)
 
         password_field: Locator = self.page.locator("#userPassword")
