@@ -67,3 +67,5 @@ class RegistrationPage:
     def submit(self) -> None:
         register_btn: Locator = self.page.get_by_role("button", name = "Register")
         register_btn.click()
+        from .loginPage import LoginPage
+        return LoginPage(self.page)

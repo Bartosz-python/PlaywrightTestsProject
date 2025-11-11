@@ -101,9 +101,6 @@ Example:
   }
 }
 ```
-
-You can load it dynamically in tests through helper functions in `/utils`.
-
 ---
 
 ## 📊 Reports

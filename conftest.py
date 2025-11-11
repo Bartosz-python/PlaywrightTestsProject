@@ -36,5 +36,5 @@ def user_credentials(request):
     return request.param
 
 def pytest_configure(config):
-    timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    timestamp: str = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     config.option.htmlpath = f"report/report_{timestamp}.html"
