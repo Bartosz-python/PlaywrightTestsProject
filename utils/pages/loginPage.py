@@ -27,6 +27,11 @@ class LoginPage:
     def swap_to_registration(self):
         register_btn: ElementHandle | None = self.page.query_selector(".btn1")
         register_btn.click()
-        from pages.registrationPage import RegistrationPage
+        from .registrationPage import RegistrationPage
         return RegistrationPage(self.page)
-        
+    
+    def swap_to_forgot_password(self):
+        forgot_password_btn: Locator = self.page.get_by_text("Forgot password?")
+        forgot_password_btn.click()
+        from .forgotPasswordPage import ForgotPasswordPage
+        return ForgotPasswordPage(self.page)

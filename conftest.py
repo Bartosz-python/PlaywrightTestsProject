@@ -1,13 +1,15 @@
 import pytest
 from playwright.sync_api import Playwright
+import datetime
+from json import load
 
-def pytest_addotpion(parser):
+def pytest_addoption(parser):
     """hooks for global variables"""
     parser.addoption(
         "--browser_name", action = "store", default = "chrome", choices = ["firefox", "chrome"]
     )
 
-@pytest.fixture
+@pytest.fixture(scope = "function")
 def playwright_setup(playwright: Playwright, request):
     """fixture for the new instance of the playwright with setup and tear down"""
     browser_name = request.config.getoption("browser_name")
@@ -18,10 +20,13 @@ def playwright_setup(playwright: Playwright, request):
         browser = playwright.firefox.launch(headless=False)
 
     context = browser.new_context()
+    context.tracing.start(screenshots= True, snapshots = True)
+
     page = context.new_page()
 
     yield page
 
+    context.tracing.stop(path = f"trace/{request.node.name}.zip")
     context.close()
     browser.close()
 
@@ -29,3 +34,7 @@ def playwright_setup(playwright: Playwright, request):
 def user_credentials(request):
     """returns currently used parameter with modifications if provided"""
     return request.param
+
+def pytest_configure(config):
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    config.option.htmlpath = f"report/report_{timestamp}.html"

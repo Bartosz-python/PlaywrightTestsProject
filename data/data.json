@@ -1,26 +1,36 @@
 {
     "credentials": {
-        "valid_users": [{
-            "userEmail": "rahulshetty@gmail.com",
-            "userPassword": "Iamking@000" 
-        },{
-            "userEmail": "randomemail123@gmail.com",
-            "userPassword": "05rmOWQ9V5RxvsTF" 
-        }],
-        "invalid_users": [{
-            "userEmail": "randomemail123@gmail.com",
-            "userPassword": "randompassword123!" 
-        },{
-            "userEmail": "asdk@gmail.com",
-            "userPassword": "qwerty123#w@1"
-        }]
+        "valid_users": [
+            {
+                "userEmail": "rahulshetty@gmail.com",
+                "userPassword": "Iamking@000" 
+            },
+            {
+                "userEmail": "randomemail123@gmail.com",
+                "userPassword": "05rmOWQ9V5RxvsTF" 
+            }
+        ],
+        "invalid_users": [
+            {
+                "userEmail": "randomemail123@gmail.com",
+                "userPassword": "randompassword123!" 
+            },
+            {
+                "userEmail": "asdk@gmail.com",
+                "userPassword": "qwerty123#w@1"
+            }
+        ]
     },
     "payloads": {
-        "request_payloads": [{
+        "request_payloads": [
+            {
 
-        }],
-        "response_payloads": [{
+            }
+        ],
+        "response_payloads": [
+            {
 
-        }]
+            }
+        ]
     }
 }
