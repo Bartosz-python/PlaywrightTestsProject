@@ -1,27 +1,29 @@
 from playwright.sync_api import expect
-import os
-from dotenv import load_dotenv
 import pytest
-from json import load
-load_dotenv()
+import random
+import string
 
-with open(os.getenv("DATA_PATH"), "r", encoding= "utf-8") as creds:
-    data = load(creds)
-    invalid_credentials = data["credentials"]["invalid_users"]
-
-# @pytest.mark.validation
-# @pytest.mark.parametrize("user_credentials", invalid_credentials, indirect=True)
-# def test_invalid_credentials_forgot_password(playwright_setup, user_credentials):
-#     try:
-#         from utils.pages.loginPage import LoginPage
-#     except ImportError as e:
-#         print(f"Error occurred during import of the object: {e}")
+@pytest.mark.validation
+def test_invalid_credentials_forgot_password(playwright_setup):
+    try:
+        from utils.pages.loginPage import LoginPage
+    except ImportError as e:
+        print(f"Error occurred during import of the object: {e}")
     
-#     loginpage: LoginPage = LoginPage(playwright_setup)
-#     forgot_password_page = loginpage.swap_to_forgot_password()
-#     forgot_password_page.fill_credentials(user_credentials["userEmail"], user_credentials["userPassword"], user_credentials["userPassword"])
-#     forgot_password_page.save_new_password()
+    random_email_name = "".join(random.choice(string.ascii_letters + string.ascii_uppercase + string.digits) 
+                                for _ in range(20))
+    random_email = f"{random_email_name}@gmail.com"
+    some_password = "123"
+    
+    loginpage: LoginPage = LoginPage(playwright_setup)
+    loginpage.navigate()
+    forgot_password_page = loginpage.swap_to_forgot_password()
+    forgot_password_page.fill_credentials(email = random_email, 
+                                          password = some_password, 
+                                          confirm_password = some_password)
+    forgot_password_page.save_new_password()
 
-    #! Bug - feature changes password to whatever password is given in the password field
-    #? Test will be automated once the issue will be resolved.
+    user_not_found_toast = forgot_password_page.page.locator("#toast-container")
 
+    expect(user_not_found_toast).to_be_visible()
+    expect(user_not_found_toast).to_contain_text("User Not found.")

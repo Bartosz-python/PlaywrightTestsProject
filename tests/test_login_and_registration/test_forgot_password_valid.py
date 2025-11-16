@@ -2,32 +2,35 @@ from playwright.sync_api import expect
 import os
 from dotenv import load_dotenv
 import pytest
-from json import load
 load_dotenv()
-
-with open(os.getenv("DATA_PATH"), "r", encoding= "utf-8") as creds:
-    data = load(creds)
-    valid_credentials = data["credentials"]["valid_users"]
+import random, string
+from typing import LiteralString
 
 @pytest.mark.validation
-@pytest.mark.parametrize("user_credentials", valid_credentials, indirect=True)
-def test_valid_credentials_forgot_password(playwright_setup, user_credentials):
+def test_valid_credentials_forgot_password(playwright_setup):
+    """Custom user is desired to be exclusive for this test"""
     try:
         from utils.pages.forgotPasswordPage import ForgotPasswordPage
         from utils.pages.loginPage import LoginPage
     except ImportError as e:
         print(f"Error occurred during import of the object: {e}")
+
+    random_password: LiteralString = "".join((random.choice(string.ascii_letters + string.ascii_uppercase + string.digits) 
+                                              for _ in range(10)))
     
     loginPage: LoginPage = LoginPage(playwright_setup)
     loginPage.navigate()
     forgot_password_page: ForgotPasswordPage = loginPage.swap_to_forgot_password()
-    forgot_password_page.fill_credentials(user_credentials["userEmail"], user_credentials["userPassword"], user_credentials["userPassword"])
+    forgot_password_page.fill_credentials(email = os.getenv("USER_EMAIL_FORGOT_PASSWORD_TEST"),
+                                          password = random_password,
+                                          confirm_password = random_password)
     forgot_password_page.save_new_password()
 
-    expect(playwright_setup).to_have_url(os.getenv("LOGIN_PAGE_URL"))
+    expect(forgot_password_page.page).to_have_url(os.getenv("LOGIN_PAGE_URL"))
     expect(loginPage.page.locator("div.toast-container")).to_contain_text("Password Changed Successfully")
 
-    back_to_login_page: LoginPage = loginPage.login(user_credentials["userEmail"], user_credentials["userPassword"])
-    back_to_login_page.sign_in()
+    login_to_dashboard_page: LoginPage = loginPage.login(os.getenv("USER_EMAIL_FORGOT_PASSWORD_TEST"), 
+                                                         random_password)
+    login_to_dashboard_page.sign_in()
 
-    expect(playwright_setup).to_have_url(os.getenv("DASHBOARD_URL"))
+    expect(login_to_dashboard_page.page).to_have_url(os.getenv("DASHBOARD_URL"))
