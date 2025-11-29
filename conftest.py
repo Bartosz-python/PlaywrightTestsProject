@@ -1,7 +1,7 @@
 import pytest
-from playwright.sync_api import Playwright
+from playwright.sync_api import Playwright, Page
 import datetime
-from json import load
+import os
 
 def pytest_addoption(parser):
     """hooks for global variables"""
@@ -22,13 +22,18 @@ def playwright_setup(playwright: Playwright, request):
     context = browser.new_context()
     context.tracing.start(screenshots= True, snapshots = True)
 
-    page = context.new_page()
+    page: Page = context.new_page()
+    page.set_default_navigation_timeout(20000)
+    page.set_default_timeout(10000)
 
-    yield page
+    try:
+        yield page
+    finally:
+        os.makedirs("trace", exist_ok = True)
 
-    context.tracing.stop(path = f"trace/{request.node.name}.zip")
-    context.close()
-    browser.close()
+        context.tracing.stop(path = f"trace/{request.node.name}.zip")
+        context.close()
+        browser.close()
 
 @pytest.fixture
 def user_credentials(request):

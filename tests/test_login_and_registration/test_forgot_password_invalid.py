@@ -10,10 +10,10 @@ def test_invalid_credentials_forgot_password(playwright_setup):
     except ImportError as e:
         print(f"Error occurred during import of the object: {e}")
     
-    random_email_name = "".join(random.choice(string.ascii_letters + string.ascii_uppercase + string.digits) 
+    random_email_name: str = "".join(random.choice(string.ascii_letters + string.ascii_uppercase + string.digits) 
                                 for _ in range(20))
-    random_email = f"{random_email_name}@gmail.com"
-    some_password = "123"
+    random_email: str = f"{random_email_name}@gmail.com"
+    some_password: str = "".join(random.choice(string.ascii_letters + string.digits))
     
     loginpage: LoginPage = LoginPage(playwright_setup)
     loginpage.navigate()
