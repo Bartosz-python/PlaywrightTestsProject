@@ -6,7 +6,7 @@ import os
 def pytest_addoption(parser):
     """hooks for global variables"""
     parser.addoption(
-        "--browser_name", action = "store", default = "chrome", choices = ["firefox", "chrome"]
+        "--browser_name", action = "store", default = "chrome", choices = ["firefox", "chrome", "webkit"]  
     )
 
 @pytest.fixture(scope = "function")
@@ -15,9 +15,11 @@ def playwright_setup(playwright: Playwright, request):
     browser_name = request.config.getoption("browser_name")
 
     if browser_name == "chrome":
-        browser = playwright.chromium.launch(headless=True)
+        browser = playwright.chromium.launch(headless=False)
     elif browser_name == "firefox":
         browser = playwright.firefox.launch(headless=True)
+    elif browser_name == "webkit":
+        browser = playwright.webkit.launch(headless=True)
 
     context = browser.new_context()
     context.tracing.start(screenshots= True, snapshots = True)

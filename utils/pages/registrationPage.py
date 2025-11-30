@@ -1,6 +1,10 @@
-from playwright.sync_api import Page, Locator
-from dataclasses import dataclass
+from playwright.sync_api import Page, Locator, TimeoutError as pr_timeout_error
+from dataclasses import dataclass, field
 from typing import Literal, Self
+from .loginPage import LoginPage
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 @dataclass
 class RegistrationData:
@@ -8,12 +12,20 @@ class RegistrationData:
     first_name: str
     last_name: str
     email: str
-    phone_number: int
+    phone_number: int        
     occupation: Literal["Doctor", "Student", "Engineer", "Scientist"]
     gender: Literal["Male", "Female"]
     password: str
     confirm_password: str
     confirmation_checkbox: bool
+
+    def __post_init__(self):
+        data = str(self.phone_number)
+        if not data.isdigit():
+            raise ValueError("phone number must contain only digits")
+        if len(data) != 10:
+            raise ValueError("phone number needs to be exactly 10 digits long")
+        self.phone_number = int(data)
 
 
 class RegistrationPage:
@@ -31,9 +43,9 @@ class RegistrationPage:
     @property
     def occupation_dropdown(self) -> Locator: return self.page.locator('select')
     @property
-    def gender_male_radio(self) -> Locator: return self.page.get_by_label("Male")
+    def gender_male_radio(self) -> Locator: return self.page.get_by_label("Male", exact=True)
     @property
-    def gender_female_radio(self) -> Locator: return self.page.get_by_label("Female")
+    def gender_female_radio(self) -> Locator: return self.page.get_by_label("Female", exact=True)
     @property
     def password_input(self) -> Locator: return self.page.locator('#userPassword')
     @property
@@ -64,8 +76,11 @@ class RegistrationPage:
 
         return self
     
-    def submit(self) -> None:
+    def submit(self) -> LoginPage | Self:
         register_btn: Locator = self.page.get_by_role("button", name = "Register")
         register_btn.click()
-        from .loginPage import LoginPage
-        return LoginPage(self.page)
+        try:
+            self.page.wait_for_url(os.getenv("LOGIN_PAGE_URL"))
+            return LoginPage(self.page)
+        except pr_timeout_error:
+            return self

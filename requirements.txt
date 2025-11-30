@@ -7,3 +7,4 @@ pytest-playwright
 validators
 requests
 gherkin-official
+dotenv
