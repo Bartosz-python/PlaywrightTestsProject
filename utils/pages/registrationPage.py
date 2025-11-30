@@ -1,6 +1,6 @@
 from playwright.sync_api import Page, Locator, TimeoutError as pr_timeout_error
 from dataclasses import dataclass, field
-from typing import Literal, Self
+from typing import Literal, Self, List
 from .loginPage import LoginPage
 import os
 from dotenv import load_dotenv
@@ -18,14 +18,6 @@ class RegistrationData:
     password: str
     confirm_password: str
     confirmation_checkbox: bool
-
-    def __post_init__(self):
-        data = str(self.phone_number)
-        if not data.isdigit():
-            raise ValueError("phone number must contain only digits")
-        if len(data) != 10:
-            raise ValueError("phone number needs to be exactly 10 digits long")
-        self.phone_number = int(data)
 
 
 class RegistrationPage:

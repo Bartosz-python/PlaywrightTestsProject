@@ -25,7 +25,7 @@ def playwright_setup(playwright: Playwright, request):
     context.tracing.start(screenshots= True, snapshots = True)
 
     page: Page = context.new_page()
-    page.set_default_navigation_timeout(20000)
+    page.set_default_navigation_timeout(5000)
     page.set_default_timeout(10000)
 
     try:
