@@ -2,6 +2,7 @@ from dotenv import load_dotenv
 import os
 from playwright.sync_api import Page, ElementHandle, Locator
 from typing import Self
+from .dashboardPage import DashboardPage
 
 load_dotenv()
 
@@ -20,9 +21,10 @@ class LoginPage:
         passwordInputField.fill(password)
         return self
 
-    def sign_in(self) -> None:
+    def sign_in(self) -> DashboardPage:
         sign_in_btn: Locator = self.page.get_by_role("button", name = "Login")
         sign_in_btn.click()
+        return DashboardPage(self.page)
 
     def swap_to_registration(self):
         register_btn: ElementHandle | None = self.page.query_selector(".btn1")

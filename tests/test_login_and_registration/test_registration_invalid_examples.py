@@ -18,7 +18,7 @@ def test_registration_invalid_email(playwright_setup):
         occupation="Engineer",
         gender="Male",
         password="randomPassword123!!",
-        confirm_password = "randomPassword123!!",
+        confirm_password ="randomPassword123!!",
         confirmation_checkbox=True 
     )
     login_page: LoginPage = LoginPage(playwright_setup)

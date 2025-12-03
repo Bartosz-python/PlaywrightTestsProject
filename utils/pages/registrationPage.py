@@ -19,7 +19,6 @@ class RegistrationData:
     confirm_password: str
     confirmation_checkbox: bool
 
-
 class RegistrationPage:
     def __init__(self, page: Page):
         self.page = page
@@ -71,6 +70,9 @@ class RegistrationPage:
     def submit(self) -> LoginPage | Self:
         register_btn: Locator = self.page.get_by_role("button", name = "Register")
         register_btn.click()
+
+        login_btn: Locator = self.page.get_by_role("button", name = "Login")
+        login_btn.click()
         try:
             self.page.wait_for_url(os.getenv("LOGIN_PAGE_URL"))
             return LoginPage(self.page)
