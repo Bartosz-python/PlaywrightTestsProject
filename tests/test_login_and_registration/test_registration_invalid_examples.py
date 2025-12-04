@@ -10,6 +10,7 @@ import string
 
 @pytest.mark.validation
 def test_registration_invalid_email(playwright_setup):
+    #TODO move RegistrationData to utils
     registration_data = RegistrationData(
         first_name="".join(random.choice(string.ascii_uppercase + string.ascii_letters) for _ in range(10)),
         last_name="".join(random.choice(string.ascii_letters + string.ascii_uppercase) for _ in range(10)),
