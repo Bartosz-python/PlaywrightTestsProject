@@ -27,4 +27,4 @@ def test_add_item_to_cart(playwright: Playwright, playwright_setup, user_credent
 
     cart_page: CartPage = dashboard_page.goto_cart_page()
     
-    cart_page.validate_item(test_item)
+    cart_page.validate_item_in_cart(test_item)
