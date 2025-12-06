@@ -24,7 +24,22 @@
     "payloads": {
         "request_payloads": [
             {
-
+                "_id":"68efffe7f669d6cb0a15a0ef",
+                "product":{
+                    "_id":"68a961459320a140fe1ca57a",
+                    "productName":"ZARA COAT 3",
+                    "productCategory":"electronics",
+                    "productSubCategory":"mobiles",
+                    "productPrice":11500,
+                    "productDescription":"Apple phone",
+                    "productImage":"https://rahulshettyacademy.com/api/ecom/uploads/productImage_1650649434146.jpeg",
+                    "productRating":"0",
+                    "productTotalOrders":"0",
+                    "productStatus":true,
+                    "productFor":"women",
+                    "productAddedBy":"admin",
+                    "__v":0
+                }
             }
         ],
         "response_payloads": [
