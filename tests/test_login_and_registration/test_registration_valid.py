@@ -1,4 +1,4 @@
-from playwright.sync_api import expect, Locator
+from playwright.sync_api import expect
 from utils.pages.loginPage import LoginPage
 from utils.pages.registrationPage import RegistrationData, RegistrationPage
 from utils.pages.dashboardPage import DashboardPage
@@ -13,6 +13,7 @@ import string
 def test_registration_valid_data(playwright_setup):
     #TODO fetch test data from seperate json or similar
     #TODO add ID field
+    #TODO move RegistrationData to utils
     registration_data: RegistrationData = RegistrationData(
         first_name="".join(random.choice(string.ascii_uppercase + string.ascii_letters) for _ in range(10)),
         last_name="".join(random.choice(string.ascii_letters + string.ascii_uppercase) for _ in range(10)),
