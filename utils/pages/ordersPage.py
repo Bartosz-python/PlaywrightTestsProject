@@ -23,11 +23,6 @@ class OrdersPage:
     def row_items_via_id(self, order_id: str) -> List[str]:
         row: Locator = self.pick_table_row_via_order_id(order_id)
         row_items: List[str] = row.all_inner_texts()
-
-        self.row_items_via_id.order_id = row_items[0]
-        self.row_items_via_id.name = row_items[2]
-        self.row_items_via_id.price = row_items[3]
-        self.row_items_via_id.ordered_date = row_items[4]
         return row_items
     
     def show_details_via_orderId(self, order_id: str) -> Page:

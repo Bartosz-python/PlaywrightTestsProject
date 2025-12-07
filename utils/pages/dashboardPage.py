@@ -1,6 +1,7 @@
 from playwright.sync_api import Page, Locator
 import os
 from .cartPage import CartPage
+from .ordersPage import OrdersPage
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -16,9 +17,11 @@ class DashboardPage:
         card_add_to_cart_btn: Locator = card.get_by_role("button", name = "Add To Cart")
         card_add_to_cart_btn.click()
     
-    def goto_orders_page(self) -> None:
+    def goto_orders_page(self) -> OrdersPage:
         orders_btn: Locator = self.page.get_by_role("button", name = "ORDERS")
         orders_btn.click()
+
+        return OrdersPage(self.page)
     
     def goto_cart_page(self) -> CartPage:
         cart_page_btn: Locator = self.page.get_by_text("  Cart ", exact=True)
