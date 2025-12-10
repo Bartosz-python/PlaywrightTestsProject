@@ -8,7 +8,7 @@ import pytest
 import random
 import string
 
-@pytest.mark.validation
+@pytest.mark.smoke
 def test_registration_invalid_email(playwright_setup):
     #TODO move RegistrationData to utils
     registration_data = RegistrationData(

@@ -1,4 +1,4 @@
-from playwright.sync_api import expect, Playwright
+from playwright.sync_api import Playwright
 from utils.pages.dashboardPage import DashboardPage
 from utils.pages.cartPage import CartPage
 from utils.api_utills.session_token import get_token
