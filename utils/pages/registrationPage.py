@@ -1,6 +1,6 @@
 from playwright.sync_api import Page, Locator, TimeoutError as pr_timeout_error
-from dataclasses import dataclass, field
-from typing import Literal, Self, List
+from dataclasses import dataclass
+from typing import Literal, Self
 from .loginPage import LoginPage
 import os
 from dotenv import load_dotenv

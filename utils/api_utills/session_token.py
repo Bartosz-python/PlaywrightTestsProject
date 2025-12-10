@@ -1,4 +1,4 @@
-from playwright.sync_api import Playwright, APIRequestContext, APIResponse, Page
+from playwright.sync_api import Playwright, APIRequestContext, APIResponse
 from dotenv import load_dotenv
 import os
 from typing import Any

@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 from json import load
 import re
+from typing import Pattern
 
 with open(os.getenv("DATA_PATH"), "r", encoding="utf-8") as user_credentials:
     creds = load(user_credentials)
@@ -16,7 +17,7 @@ with open(os.getenv("DATA_PATH"), "r", encoding="utf-8") as user_credentials:
 @pytest.mark.regression
 @pytest.mark.parametrize("user_credentials", user_credentials, indirect=True)
 def test_add_item_to_cart(playwright: Playwright, playwright_setup, user_credentials):
-    test_item: str = re.compile(re.escape("ZARA COAT 3"), re.IGNORECASE)
+    test_item: Pattern[str] = re.compile(re.escape("ZARA COAT 3"), re.IGNORECASE)
 
     token = get_token(playwright, user_credentials)
     
