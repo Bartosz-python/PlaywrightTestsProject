@@ -1,5 +1,6 @@
 from playwright.sync_api import Page, expect, Locator
 from typing import List
+from .ordersDetailsPage import OrdersDetailPage
 
 class OrdersPage:
     def __init__(self, page: Page):
@@ -16,24 +17,23 @@ class OrdersPage:
         to_cart_btn: Locator = self.page.get_by_role("button", name = "Go Back to Cart")
         to_cart_btn.click()
 
-    def pick_table_row_via_order_id(self, order_id: str) -> Locator:
+    def _pick_table_row_via_order_id(self, order_id: str) -> Locator:
         row: Locator = self.page.locator("tr").filter(has_text = order_id)
         return row
     
     def row_items_via_id(self, order_id: str) -> List[str]:
-        row: Locator = self.pick_table_row_via_order_id(order_id)
+        row: Locator = self._pick_table_row_via_order_id(order_id)
         row_items: List[str] = row.all_inner_texts()
         return row_items
     
-    def show_details_via_orderId(self, order_id: str) -> Page:
-        row: Locator = self.pick_table_row_via_order_id(order_id)
+    def show_details_via_orderId(self, order_id: str) -> OrdersDetailPage:
+        row: Locator = self._pick_table_row_via_order_id(order_id)
         orders_view_btn: Locator = row.get_by_role("button", name = "View")
         orders_view_btn.click()
-
-        from ordersDetailsPage import OrdersDetailPage
+        
         return OrdersDetailPage(self.page)
     
     def delete_row_via_order_id(self, order_id: str) -> None:
-        row: Locator = self.pick_table_row_via_order_id(order_id)
+        row: Locator = self._pick_table_row_via_order_id(order_id)
         delete_btn: Locator = row.get_by_role("button", name = "Delete")
         delete_btn.click()

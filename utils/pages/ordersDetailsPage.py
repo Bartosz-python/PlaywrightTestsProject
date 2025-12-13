@@ -1,5 +1,5 @@
 from playwright.sync_api import Page, expect
-from typing import List
+from typing import List, Pattern
 
 class OrdersDetailPage:
     def __init__(self, page: Page):
@@ -10,5 +10,5 @@ class OrdersDetailPage:
         address_items = address_object.all_text_contents()[1:]
         return address_items
     
-    def verify_ordered_product_title(self, title: str) -> None:
+    def verify_ordered_product_title(self, title: str | Pattern[str]) -> None:
         expect(self.page.locator(".title")).to_have_text(title)
