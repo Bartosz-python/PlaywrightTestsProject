@@ -4,6 +4,7 @@ from .cartPage import CartPage
 from .ordersPage import OrdersPage
 from dotenv import load_dotenv
 load_dotenv()
+from typing import Pattern
 
 class DashboardPage:
     def __init__(self, page: Page):
@@ -12,7 +13,7 @@ class DashboardPage:
     def navigate(self) -> None:
         self.page.goto(os.getenv("DASHBOARD_URL"))
 
-    def add_item_to_cart(self, item: str) -> None:
+    def add_item_to_cart(self, item: str | Pattern[str]) -> None:
         card = self.page.locator(".card-body").filter(has_text=item)
         card_add_to_cart_btn: Locator = card.get_by_role("button", name = "Add To Cart")
         card_add_to_cart_btn.click()

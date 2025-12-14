@@ -7,7 +7,7 @@ import json
 
 with open(os.getenv("DATA_PATH"), "r", encoding="utf-8") as creds:
     data = json.load(creds)
-    mock_payload_for_create_api = data["payloads"]["request_payloads"][1]["orders"] #! To fix, wrongly fetched data to variable
+    mock_payload_for_create_api = data["payloads"]["request_payloads"][1]
 
 def get_token(playwright: Playwright, user_credentials) -> str | Any:
     """Function that returns session token for the logged user"""
