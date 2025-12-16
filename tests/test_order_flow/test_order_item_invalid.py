@@ -6,7 +6,7 @@ import os, re, pytest
 from dotenv import load_dotenv
 load_dotenv()
 from typing import Pattern
-from playwright.sync_api import expect, Playwright
+from playwright.sync_api import Playwright
 from json import load
 
 with open(os.getenv("DATA_PATH"), "r", encoding="utf-8") as creds:
