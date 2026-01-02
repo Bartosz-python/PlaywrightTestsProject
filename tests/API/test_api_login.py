@@ -41,7 +41,7 @@ def test_api_login_invalid_password():
                "Content-Type": "application/json"}
 
     response: Response = requests.post(url = url,
-                                       data = data,
+                                       json = data,
                                        headers = headers)
     
     assert response.status_code == 401 #Unauthtorized
