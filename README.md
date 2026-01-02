@@ -79,9 +79,9 @@ pytest -tb=long
 You can choose which browser Playwright uses via a **custom CLI argument** defined in `conftest.py`.
 
 ```bash
-pytest --browser_name=chromium
-pytest --browser_name=firefox
-pytest --browser_name=webkit
+pytest --browser_name chromium
+pytest --browser_name firefox
+pytest --browser_name webkit
 ```
 
 Default browser: `chromium`
