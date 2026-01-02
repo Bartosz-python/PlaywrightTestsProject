@@ -13,8 +13,8 @@ def get_token(playwright: Playwright, user_credentials) -> str | Any:
     """Function that returns session token for the logged user"""
     api_context: APIRequestContext = playwright.request.new_context(base_url = os.getenv("URL"))
     response: APIResponse = api_context.post(url = os.getenv("LOGIN_ENDPOINT"),
-                                                   data = {"userEmail": user_credentials["userEmail"],
-                                                           "userPassword": user_credentials["userPassword"]})
+                                             data = {"userEmail": user_credentials["userEmail"],
+                                                     "userPassword": user_credentials["userPassword"]})
     assert response.ok
 
     response_body = response.json()
@@ -29,10 +29,9 @@ def create_order(playwright: Playwright, user_credentials: list[dict[str, str]])
     token: str = get_token(playwright, user_credentials)
 
     request_create_order_context: APIRequestContext = playwright.request.new_context(base_url=os.getenv("URL"))
-    create_order_api_response: APIResponse = request_create_order_context.post(
-                                                                                url = os.getenv("CREATE_ORDER"),
-                                                                                data = mock_payload_for_create_api,
-                                                                                headers = {"Authorization" : token,
+    create_order_api_response: APIResponse = request_create_order_context.post(url = os.getenv("CREATE_ORDER"),
+                                                                               data = mock_payload_for_create_api,
+                                                                               headers = {"Authorization" : token,
                                                                                           "Content-Type": "application/json"})
     assert create_order_api_response.status == 201
 

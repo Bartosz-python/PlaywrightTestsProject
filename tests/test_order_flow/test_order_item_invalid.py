@@ -16,7 +16,7 @@ with open(os.getenv("DATA_PATH"), "r", encoding="utf-8") as creds:
 @pytest.mark.validation
 @pytest.mark.parametrize("user_credentials", valid_user_credentials, indirect=True)
 def test_order_item_invalid(playwright: Playwright, playwright_setup, user_credentials):
-    token = get_token(playwright, user_credentials)
+    token: str = get_token(playwright, user_credentials)
     product_item: Pattern[str] = re.compile(re.escape("ZARA COAT 3"), re.IGNORECASE)
 
     dashboard_page: DashboardPage = DashboardPage(playwright_setup)

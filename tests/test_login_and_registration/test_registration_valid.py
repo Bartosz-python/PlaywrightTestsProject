@@ -13,7 +13,7 @@ import string
 def test_registration_valid_data(playwright_setup):
     #TODO fetch test data from seperate json or similar
     #TODO add ID field
-    #TODO move RegistrationData to utils
+    #TODO migrate RegistrationData to utils
     registration_data: RegistrationData = RegistrationData(
         first_name="".join(random.choice(string.ascii_uppercase + string.ascii_letters) for _ in range(10)),
         last_name="".join(random.choice(string.ascii_letters + string.ascii_uppercase) for _ in range(10)),
@@ -25,22 +25,21 @@ def test_registration_valid_data(playwright_setup):
         confirm_password ="randomPassword123!!",
         confirmation_checkbox=True 
     )
-
     login_page: LoginPage = LoginPage(playwright_setup)
     login_page.navigate()
-    
+
     registration_page: RegistrationPage = login_page.swap_to_registration()
     registration_page.fill_form(registration_data)
-    
+
     login_page_again: LoginPage = registration_page.submit()
 
     expect(login_page_again.page).to_have_url(os.getenv("LOGIN_PAGE_URL"))
 
     login_page_again.login(email = registration_data.email, password = registration_data.password)
-    
+
     dashboard_page: DashboardPage = login_page_again.sign_in()
 
-    #? Temporary saving created test accounts in the seperate file
+    #? Temporary saving created test accounts to the seperate file
     with open("data/registeredTestUsers.txt", "a", encoding="utf-8") as registered_test_users_file:
         registered_test_users_file.write(f"{repr(registration_data)}\r\n")
 
