@@ -46,4 +46,4 @@ def test_api_login_invalid_password():
     
     assert response.status_code == 401 #Unauthtorized
     #! Test pokazuje ze login endpoint zwraca 400 przy niepoprawnym haśle.
-    print(response.headers["Authtorization"])
+    print(response.headers["Authorization"])
