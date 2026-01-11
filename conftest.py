@@ -35,8 +35,8 @@ def auth_token_and_user_id(url_login: str, payload_credentials: dict[str, str], 
         assert response.status_code == 200, f"Login failed: {response.status_code} - {response.text}"
         
         response_body = response.json()
-        token = response_body.get("token")
-        user_id = response_body.get("userId")
+        token = response_body.get("token", False)
+        user_id = response_body.get("userId", False)
         
         assert token, "Token missing in response"
         assert user_id, "User ID missing in response"
@@ -59,7 +59,7 @@ def playwright_setup(playwright: Playwright, request):
     browser_name = request.config.getoption("browser_name")
 
     if browser_name == "chrome":
-        browser = playwright.chromium.launch(headless=False)
+        browser = playwright.chromium.launch(headless=True)
     elif browser_name == "firefox":
         browser = playwright.firefox.launch(headless=True)
     elif browser_name == "webkit":

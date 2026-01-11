@@ -26,7 +26,6 @@ class DashboardPage:
     
     def goto_cart_page(self) -> CartPage:
         cart_page_btn: Locator = self.page.get_by_text("  Cart ", exact=True)
-        cart_page_btn.scroll_into_view_if_needed()
         cart_page_btn.click()
         
         return CartPage(self.page)

@@ -16,13 +16,13 @@ with open(os.getenv("DATA_PATH"), "r", encoding="utf-8") as creds:
 @pytest.mark.regression
 @pytest.mark.parametrize("user_credentials", valid_credentials, indirect=True)
 def test_order_item_valid(playwright_setup, playwright: Playwright, user_credentials):
+    order_id: str = create_order(playwright, user_credentials)
     token: str = get_token(playwright, user_credentials)
     product_header: Pattern[str] = re.compile(re.escape("ZARA COAT 3"), re.IGNORECASE)
 
     dashboard_page: DashboardPage = DashboardPage(playwright_setup)
     dashboard_page.page.add_init_script(f"localStorage.setItem('token', '{token}')")
-    order_id: str = create_order(playwright, user_credentials)
-
+    
     dashboard_page.navigate()
     orders_page: OrdersPage = dashboard_page.goto_orders_page()
     order_details_page: OrdersDetailPage = orders_page.show_details_via_orderId(order_id)

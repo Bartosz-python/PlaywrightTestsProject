@@ -27,5 +27,6 @@ def test_add_item_to_cart(playwright: Playwright, playwright_setup, user_credent
     dashboard_page.add_item_to_cart(test_item)
 
     cart_page: CartPage = dashboard_page.goto_cart_page()
+    cart_page.page.wait_for_load_state("domcontentloaded")
     
     cart_page.validate_item_in_cart(test_item)

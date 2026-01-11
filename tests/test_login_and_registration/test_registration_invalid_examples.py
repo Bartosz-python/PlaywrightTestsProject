@@ -1,6 +1,5 @@
 from utils.pages.loginPage import LoginPage
 from utils.pages.registrationPage import RegistrationPage, RegistrationData 
-import os
 from dotenv import load_dotenv
 load_dotenv()
 from playwright.sync_api import expect, Locator

@@ -71,9 +71,9 @@ class RegistrationPage:
         register_btn: Locator = self.page.get_by_role("button", name = "Register")
         register_btn.click()
 
-        login_btn: Locator = self.page.get_by_role("button", name = "Login")
-        login_btn.click()
         try:
+            login_btn: Locator = self.page.get_by_role("button", name = "Login")
+            login_btn.click()
             self.page.wait_for_url(os.getenv("LOGIN_PAGE_URL"))
             return LoginPage(self.page)
         except pr_timeout_error:

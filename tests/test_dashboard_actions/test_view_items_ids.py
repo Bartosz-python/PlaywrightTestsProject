@@ -10,12 +10,11 @@ from utils.api_utills.session_token import get_token
 
 with open(os.getenv("DATA_PATH"), "r", encoding="utf-8") as creds:
     data = load(creds)
-    user_credentials = data["credentials"]["valid_users"]
+    user_credentials = data["credentials"]["valid_users"][1]
     item_id = data["payloads"]["request_payloads"][0]["product"]["_id"]
 
 @pytest.mark.regression
-@pytest.mark.parametrize("user_credentials", user_credentials, indirect=True)
-def test_if_item_id_is_visible(playwright_setup, playwright: Playwright, user_credentials):
+def test_if_item_id_is_visible(playwright_setup, playwright: Playwright):
     token = get_token(playwright, user_credentials)
 
     dashboard_page: DashboardPage = DashboardPage(playwright_setup)

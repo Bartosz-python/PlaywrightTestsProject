@@ -32,7 +32,7 @@ def test_registration_valid_data(playwright_setup):
     registration_page.fill_form(registration_data)
 
     login_page_again: LoginPage = registration_page.submit()
-
+    
     expect(login_page_again.page).to_have_url(os.getenv("LOGIN_PAGE_URL"))
 
     login_page_again.login(email = registration_data.email, password = registration_data.password)
